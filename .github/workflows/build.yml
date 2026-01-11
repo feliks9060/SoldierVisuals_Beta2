@@ -1,6 +1,5 @@
 name: Build SoldierVisuals
 
-# Запускать при пуше в main или вручную
 on:
   push:
     branches:
@@ -12,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1️⃣ Клонируем репозиторий
+    # 1️⃣ Checkout репозитория
     - uses: actions/checkout@v3
 
     # 2️⃣ Устанавливаем JDK 17
@@ -22,15 +21,17 @@ jobs:
         distribution: temurin
         java-version: 17
 
-    # 3️⃣ Устанавливаем Gradle через официальный Action
-    - name: Set up Gradle
+    # 3️⃣ Устанавливаем Gradle 7.6 (подходит для Loom 0.7.35)
+    - name: Set up Gradle 7.6
       uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: 7.6
 
     # 4️⃣ Собираем мод
     - name: Build with Gradle
       run: gradle build
 
-    # 5️⃣ Загружаем собранный .jar
+    # 5️⃣ Загружаем .jar
     - name: Upload jar
       uses: actions/upload-artifact@v4
       with:
