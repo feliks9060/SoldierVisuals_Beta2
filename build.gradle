@@ -1,39 +1,30 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.fabricmc.net/' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'net.fabricmc:fabric-loom:0.7-SNAPSHOT'
-    }
+plugins {
+    id 'fabric-loom' version '0.7.35'
+    id 'maven-publish'
 }
 
-apply plugin: 'fabric-loom'
-apply plugin: 'maven-publish'
-
-group = 'com.yourname'
+group = 'com.yourname.soldiervisuals'
 version = '1.0.0'
+archivesBaseName = 'SoldierVisuals'
 
 repositories {
-    maven { url 'https://maven.fabricmc.net/' }
     mavenCentral()
+    maven { url = 'https://maven.fabricmc.net/' }
 }
 
 dependencies {
-    minecraft 'com.mojang:minecraft:1.16.5'
-    mappings 'net.fabricmc:yarn:1.16.5+build.5:v2'
-    modImplementation 'net.fabricmc:fabric-loader:0.11.6'
-    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.40.1+1.16'
-}
-
-minecraft {
-    version = "1.16.5"
-    yarnMappings = "1.16.5+build.5"
-    loaderVersion = "0.11.6"
+    minecraft "com.mojang:minecraft:1.16.5"
+    mappings "net.fabricmc:yarn:1.16.5+build.14:v2" // Yarn mappings для 1.16.5
+    modImplementation "net.fabricmc:fabric-loader:0.14.21"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.64.0+1.16"
 }
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion = JavaLanguageVersion.of(17)
     }
+}
+
+loom {
+    // для 1.16.5 не используем yarnMappings напрямую
 }
